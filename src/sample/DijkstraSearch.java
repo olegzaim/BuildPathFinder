@@ -51,7 +51,18 @@ public class DijkstraSearch extends BaseSearch {
                         transitionType = t.transitionEnum.name();
                     }
                 }
+
+                if(transitionType.isEmpty()){
+                    for (Transition t : temp.getParent().transitions) {
+                        if (t.to.getNumber().equals(temp.getNumber())) {
+                            transitionType = t.transitionEnum.name();
+                        }
+                    }
+
+                }
+
                 transitionType = transitionType.isEmpty() ? "Haven't transition!!!" : transitionType;
+
 //                System.out.println("Temp node is: " + temp.getNumber() + " transition type: " + transitionType
 //                        + " , parent " + temp.getParent().getNumber()
 //                        + " , weight " + temp.getWeight());
