@@ -52,9 +52,16 @@ public class DijkstraSearch extends BaseSearch {
                     }
                 }
                 transitionType = transitionType.isEmpty() ? "Haven't transition!!!" : transitionType;
-                System.out.println("Temp node is: " + temp.getNumber() + " transition type: " + transitionType
+//                System.out.println("Temp node is: " + temp.getNumber() + " transition type: " + transitionType
+//                        + " , parent " + temp.getParent().getNumber()
+//                        + " , weight " + temp.getWeight());
+
+
+                String s= new String("Temp node is: " + temp.getNumber() + " transition type: " + transitionType
                         + " , parent " + temp.getParent().getNumber()
                         + " , weight " + temp.getWeight());
+                Controller controller = new Controller();
+                controller.setTextInLable(s);
             }
 
             if (temp.getNumber().equals(endName)) {
@@ -122,13 +129,14 @@ public class DijkstraSearch extends BaseSearch {
                         }
                     }
                     transitionType = transitionType.isEmpty() ? "Haven't transition!!!" : transitionType;
-                    System.out.println("Temp place is: " + temp.getNumber() + " transition type: " + transitionType
+                    Controller controller = new Controller();
+                    controller.setTextInLable("Temp place is: " + temp.getNumber() + " transition type: " + transitionType
                             + " , parent " + temp.getParent().getNumber()
-                            + " , weight " + temp.getDepth());
+                            + " , distance " + temp.getDepth());
                 }
                 if (temp.getNumber().equals(endName)) {
 
-                    printPath(endName);
+                    printCoordinatePath(endName);
                     return true;
                 }
 
@@ -147,7 +155,7 @@ public class DijkstraSearch extends BaseSearch {
 
             }
 
-            printPath(endName);
+            printCoordinatePath(endName);
             return false;
         }
     }
@@ -213,5 +221,15 @@ public class DijkstraSearch extends BaseSearch {
             node = node.getParent();
         } while (node != null);
         System.out.println(path + " weight: " + build.getNode(name).getWeight());
+    }
+
+    public void printCoordinatePath(String name) {
+        Place node = build.getNode(name);
+        StringBuilder path = new StringBuilder();
+        do {
+            path.insert(0, "->" + node.getNumber());
+            node = node.getParent();
+        } while (node != null);
+        System.out.println(path + " distance: " + build.getNode(name).getWeight());
     }
 }
